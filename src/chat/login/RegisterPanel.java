@@ -52,10 +52,10 @@ public class RegisterPanel extends JPanel {
 		add(panel);
 
 		// 고양이 이미지 생성
-		JLabel lblNewLabel = new JLabel("고양이이미지");
-		lblNewLabel.setBounds(0, 0, 728, 287);
-		lblNewLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/Img/loginCat.png")));
-		panel.add(lblNewLabel);
+		JLabel logoPanel = new JLabel("고양이이미지");
+		logoPanel.setBounds(0, 0, 728, 287);
+		logoPanel.setIcon(new ImageIcon(RegisterPanel.class.getResource("/Img/loginCat.png")));
+		panel.add(logoPanel);
 		
 		JLabel idLabel = new JLabel("아이디 입력");
 		idLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));

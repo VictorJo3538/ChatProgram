@@ -2,6 +2,7 @@ package chat.frame;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -24,7 +25,9 @@ public class ChatRoomFrame extends JFrame {
 	int y = (screenSize.height - frameHeight) / 2;
 			
 	public ChatRoomFrame() {
-		
+		setTitle("고양이뱃살(Go!Bat) - 채팅화면");
+		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 프레임 아이콘.png");
+		setIconImage(icon);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(frameWidth, frameHeight);
 		setLocation(x, y);

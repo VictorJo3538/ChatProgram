@@ -2,7 +2,11 @@ package chat.frame;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +19,8 @@ import chat.login.LoginPanel;
 import chat.login.RegisterPanel;
 
 import java.awt.CardLayout;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +37,9 @@ public class LogInFrame extends JFrame {
 		int x = (screenSize.width - frameWidth) / 2;
 		int y = (screenSize.height - frameHeight) / 2;
 				
-		setTitle("고양이뱃살(Go!Bat)");
+		setTitle("고양이뱃살(Go!Bat) - 로그인 화면");
+		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 프레임 아이콘.png");
+        setIconImage(icon);
 		setResizable(false);  // 창변경금지
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(frameWidth, frameHeight);

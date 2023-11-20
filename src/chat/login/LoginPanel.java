@@ -4,8 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import chat.frame.ChatRoomFrame;
 import chat.frame.FrameManager;
@@ -24,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JPasswordField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 public class LoginPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -38,10 +43,10 @@ public class LoginPanel extends JPanel {
 		setBounds(0, 0, 728, 560);
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("로그인용 패널");
-		lblNewLabel.setBounds(0, 0, 728, 287);
-		lblNewLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/Img/loginCat.png")));
-		add(lblNewLabel);
+		JLabel iconLabel = new JLabel("고양이 이미지");
+		iconLabel.setBounds(0, 0, 728, 287);
+		iconLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/Img/loginCat.png")));
+		add(iconLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 287, 728, 273);
@@ -91,8 +96,6 @@ public class LoginPanel extends JPanel {
 		wrongInputWarningLabel.setBounds(183, 200, 246, 15);
 		wrongInputWarningLabel.setVisible(false);
 		panel.add(wrongInputWarningLabel);
-		
-		
 		
 		JLabel emptyInputWarningLabel = new JLabel("아이디 또는 비밀번호가 공란일 수 없습니다!");
 		emptyInputWarningLabel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
