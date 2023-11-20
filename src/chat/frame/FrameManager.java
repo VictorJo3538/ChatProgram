@@ -10,14 +10,14 @@ public class FrameManager {
     
     public static void init() {
     	frames.put("ChatRoom", new ChatRoomFrame());
-    	frames.put("LogIn", new LogInFrame());
+    	frames.put("Login", new LogInFrame());
     }
     
     public static JFrame getChatRoomFrame() {
     	return (JFrame) frames.get("ChatRoom");
     }
     
-    public static JFrame getLogInFrame() {
-    	return (JFrame) frames.get("LogIn");
+    public static JFrame getLoginFrame() {
+    	return (JFrame) frames.get("Login");
     }
 }

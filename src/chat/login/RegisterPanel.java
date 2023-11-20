@@ -97,12 +97,12 @@ public class RegisterPanel extends JPanel {
 		passwordConfirmField.setBounds(406, 442, 262, 46);
 		panel.add(passwordConfirmField);
 		
-		JLabel passwordMismatchWarnginLabel = new JLabel("비밀번호가 일치하지 않습니다!");
-		passwordMismatchWarnginLabel.setForeground(new Color(255, 0, 0));
-		passwordMismatchWarnginLabel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
-		passwordMismatchWarnginLabel.setBounds(487, 497, 181, 15);
-		passwordMismatchWarnginLabel.setVisible(false);
-		panel.add(passwordMismatchWarnginLabel);
+		JLabel passwordMismatchWarningnLabel = new JLabel("비밀번호가 일치하지 않습니다!");
+		passwordMismatchWarningnLabel.setForeground(new Color(255, 0, 0));
+		passwordMismatchWarningnLabel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		passwordMismatchWarningnLabel.setBounds(487, 497, 181, 15);
+		passwordMismatchWarningnLabel.setVisible(false);
+		panel.add(passwordMismatchWarningnLabel);
 		
 		JLabel emptyWarningLabel = new JLabel("입력 칸을 모두 채워주세요");
 		emptyWarningLabel.setForeground(new Color(255, 0, 0));
@@ -118,7 +118,7 @@ public class RegisterPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// 경고문구 초기화
 				emptyWarningLabel.setVisible(false);
-				passwordMismatchWarnginLabel.setVisible(false);
+				passwordMismatchWarningnLabel.setVisible(false);
 				
 				String name, id;
 				char[] passwordConfirm;
@@ -129,15 +129,17 @@ public class RegisterPanel extends JPanel {
 				password = passwordField.getPassword();
 				passwordConfirm = passwordConfirmField.getPassword();
 				
+				// 제대로 입력 안하면 함수 종료시키기
 				if(name.length() == 0 || id.length() == 0 || password.length == 0 || passwordConfirm.length == 0) {
 					emptyWarningLabel.setVisible(true);
+					return;
 				}
-				else if(Arrays.equals(password, passwordConfirm) && password.length > 0) {
-					System.out.println("여기에 회원가입 구성");
+				if (!(Arrays.equals(password, passwordConfirm) && password.length > 0)) {
+					passwordMismatchWarningnLabel.setVisible(true);
+					return;
 				}
-				else {
-					passwordMismatchWarnginLabel.setVisible(true);
-				}
+				
+				System.out.println("여기에 회원가입 구성");
 			}
 		});
 		confirmButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
@@ -145,7 +147,7 @@ public class RegisterPanel extends JPanel {
 		JButton cancelButton = new JButton("취소");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((LogInFrame) FrameManager.getLogInFrame()).showLoginPanel();
+				((LogInFrame) FrameManager.getLoginFrame()).showLoginPanel();
 			}
 		});
 		cancelButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));

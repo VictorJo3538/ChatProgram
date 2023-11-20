@@ -27,7 +27,7 @@ import javax.swing.JPasswordField;
 
 public class LoginPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
+	private JTextField idField;
 	private JPasswordField passwordField;
 	
 
@@ -48,55 +48,89 @@ public class LoginPanel extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Arial", Font.PLAIN, 20));
-		textField.setBounds(173, 65, 262, 46);
-		panel.add(textField);
-		textField.setColumns(10);
+		idField = new JTextField();
+		idField.setFont(new Font("Arial", Font.PLAIN, 20));
+		idField.setBounds(173, 65, 262, 46);
+		panel.add(idField);
+		idField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("아이디");
-		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(173, 31, 75, 24);
-		panel.add(lblNewLabel_1);
+		JLabel idLabel = new JLabel("아이디");
+		idLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		idLabel.setBounds(173, 31, 75, 24);
+		panel.add(idLabel);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("비밀번호");
-		lblNewLabel_1_1.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
-		lblNewLabel_1_1.setBounds(173, 115, 104, 24);
-		panel.add(lblNewLabel_1_1);
+		JLabel passwordLabel = new JLabel("비밀번호");
+		passwordLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		passwordLabel.setBounds(173, 115, 104, 24);
+		panel.add(passwordLabel);
 		
-		JButton btnNewButton = new JButton("로그인Go!");
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setBackground(new Color(204, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
+		JLabel registerLabel = new JLabel("Go!Bat의 회원이 아니라면?");
+		registerLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		registerLabel.setBounds(14, 218, 263, 24);
+		panel.add(registerLabel);
+		
+		JButton registerButton = new JButton("회원가입Go!");
+		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrameManager.getLogInFrame().dispose();
-				FrameManager.getChatRoomFrame().setVisible(true);
+				((LogInFrame) FrameManager.getLoginFrame()).showRegisterPanel();
 			}
 		});
-		btnNewButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		btnNewButton.setBounds(447, 65, 130, 125);
-		panel.add(btnNewButton);
-		
-		JLabel lblNewLabel_2 = new JLabel("Go!Bat의 회원이 아니라면?");
-		lblNewLabel_2.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(14, 218, 263, 24);
-		panel.add(lblNewLabel_2);
-		
-		JButton btnNewButton_1 = new JButton("회원가입Go!");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				((LogInFrame) FrameManager.getLogInFrame()).showRegisterPanel();
-			}
-		});
-		btnNewButton_1.setBackground(new Color(240, 252, 255));
-		btnNewButton_1.setFont(new Font("맑은 고딕", Font.BOLD, 12));
-		btnNewButton_1.setBounds(12, 240, 104, 23);
-		panel.add(btnNewButton_1);
+		registerButton.setBackground(new Color(240, 252, 255));
+		registerButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		registerButton.setBounds(12, 240, 104, 23);
+		panel.add(registerButton);
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("굴림", Font.PLAIN, 20));
 		passwordField.setBounds(173, 144, 262, 46);
 		panel.add(passwordField);
-
+		
+		JLabel wrongInputWarningLabel = new JLabel("아이디 또는 비밀번호가 일치하지 않습니다!");
+		wrongInputWarningLabel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		wrongInputWarningLabel.setForeground(new Color(255, 0, 0));
+		wrongInputWarningLabel.setBounds(183, 200, 246, 15);
+		wrongInputWarningLabel.setVisible(false);
+		panel.add(wrongInputWarningLabel);
+		
+		
+		
+		JLabel emptyInputWarningLabel = new JLabel("아이디 또는 비밀번호가 공란일 수 없습니다!");
+		emptyInputWarningLabel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		emptyInputWarningLabel.setForeground(new Color(255, 0, 0));
+		emptyInputWarningLabel.setBounds(183, 200, 246, 15);
+		emptyInputWarningLabel.setVisible(false);
+		panel.add(emptyInputWarningLabel);
+		
+		JButton loginButton = new JButton("로그인Go!");
+		loginButton.setForeground(Color.BLACK);
+		loginButton.setBackground(new Color(204, 255, 255));
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				wrongInputWarningLabel.setVisible(false);
+				emptyInputWarningLabel.setVisible(false);
+				
+				String id; char[] password;
+				
+				id = idField.getText();
+				password = passwordField.getPassword();
+				
+				if(id.length() == 0 || password.length == 0) {
+					emptyInputWarningLabel.setVisible(true);
+					return;
+				}
+				if(!id.equals(String.valueOf(password))) {
+					// 아이디 비밀번호가 정확하지 않을때 로직 구현(현재 임시상태)
+					wrongInputWarningLabel.setVisible(true);
+					return;
+				}
+				
+				// 제대로 로그인 했을 때 
+				FrameManager.getLoginFrame().dispose();
+				FrameManager.getChatRoomFrame().setVisible(true);
+			}
+		});
+		loginButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		loginButton.setBounds(447, 65, 130, 125);
+		panel.add(loginButton);
 	}
 }
