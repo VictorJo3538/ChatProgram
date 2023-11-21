@@ -2,17 +2,16 @@ package chat.frame;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.*;
 
 public class Main {
 	// 어플리케이션 실행
 	public static void main(String[] args) {
 		// flatlaf 테마 적용
 		try {
-			UIManager.setLookAndFeel(new FlatLightLaf());
+			UIManager.setLookAndFeel(new FlatIntelliJLaf());
 		} catch (Exception ex) {
 			System.err.println("Failed to initialize LaF");
 		}

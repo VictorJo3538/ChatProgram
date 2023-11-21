@@ -2,7 +2,10 @@ package chat.frame;
 
 import java.util.*;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.themes.*;
 
 public class FrameManager {
 	// 객체를 담을 해쉬맵 생성

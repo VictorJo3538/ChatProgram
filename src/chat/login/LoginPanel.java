@@ -1,34 +1,13 @@
 package chat.login;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.BorderLayout;
+import javax.swing.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-
-import chat.frame.ChatRoomFrame;
 import chat.frame.FrameManager;
 import chat.frame.LogInFrame;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JPasswordField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
 public class LoginPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -128,7 +107,7 @@ public class LoginPanel extends JPanel {
 				}
 				
 				// 제대로 로그인 했을 때 
-				FrameManager.getLoginFrame().dispose();
+				FrameManager.getLoginFrame().setVisible(false);
 				FrameManager.getChatRoomFrame().setVisible(true);
 			}
 		});

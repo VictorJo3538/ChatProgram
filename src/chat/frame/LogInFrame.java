@@ -1,26 +1,11 @@
 package chat.frame;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.*;
 
 import chat.login.LoginPanel;
 import chat.login.RegisterPanel;
-
-import java.awt.CardLayout;
-import javax.swing.border.BevelBorder;
-import java.awt.Color;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;

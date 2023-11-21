@@ -1,32 +1,10 @@
 package chat.login;
 
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Arrays;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-
-import java.awt.GridBagLayout;
-import javax.swing.SpringLayout;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
 
 import chat.frame.FrameManager;
 import chat.frame.LogInFrame;
