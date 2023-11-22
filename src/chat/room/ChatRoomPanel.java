@@ -274,44 +274,34 @@ public class ChatRoomPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JMenuItem source = (JMenuItem) e.getSource();
-            	Themes themes = ThemeManager.themes;
+            	Themes themes = new Themes();
+           
+            	darkmodeToggleButton.setEnabled(false);        
             	
-            	darkmodeToggleButton.setEnabled(true);
-            	darkmodeToggleButton.setSelected(false);
-            	
-                if (source == themeFlatlaf) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatLightLaf);
-                	DialogManager.showThemeSelectDialog(new FlatLightLaf());
-
-                } else if (source == themeMac) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatMacLightLaf);
-                	DialogManager.showThemeSelectDialog(new FlatMacLightLaf());
-                } else if (source == themeDacular) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatDarculaLaf);
-                	DialogManager.showThemeSelectDialog(new FlatDarculaLaf());
-                } else if (source == themeIntelliJ) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatIntelliJLaf);
-                	DialogManager.showThemeSelectDialog(new FlatIntelliJLaf());
-                } else if (source == themeArcIJ) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatArcIJTheme);
-                	DialogManager.showThemeSelectDialog(new FlatArcIJTheme());
-                } else if (source == themeArcOrange) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatArcOrangeIJTheme);
-                	DialogManager.showThemeSelectDialog(new FlatArcOrangeIJTheme());
-                } else if (source == themeCyanLight) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatCyanLightIJTheme);
-                	DialogManager.showThemeSelectDialog(new FlatCyanLightIJTheme());
-                } else if (source == themeDarkPurple) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatDarkPurpleIJTheme);
-                	DialogManager.showThemeSelectDialog(new FlatDarkPurpleIJTheme());
-                } else if (source == themeCarbon) {
-//                	DialogManager.showThemeSelectDialog(themes.FlatCarbonIJTheme);
-                	DialogManager.showThemeSelectDialog(new FlatCarbonIJTheme());
-                }
+            	if (source == themeFlatlaf) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatLightLaf);
+            	} else if (source == themeMac) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatMacLightLaf);
+            	} else if (source == themeDacular) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatDarculaLaf);
+            	} else if (source == themeIntelliJ) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatIntelliJLaf);
+            	} else if (source == themeArcIJ) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatArcIJTheme);
+            	} else if (source == themeArcOrange) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatArcOrangeIJTheme);
+            	} else if (source == themeCyanLight) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatCyanLightIJTheme);
+            	} else if (source == themeDarkPurple) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatDarkPurpleIJTheme);
+            	} else if (source == themeCarbon) {
+            	    DialogManager.showThemeSelectDialog(themes.FlatCarbonIJTheme);
+            	}
                 
-                // 다크모드 없는 테마일때 
-                if (!ThemeManager.hasDarkmode(ThemeManager.getCurrentTheme())) {
-                	darkmodeToggleButton.setEnabled(false);  // 다크모드 버튼 비활성화
+                // 다크모드 있는 테마일때 
+                if (ThemeManager.hasDarkmode(ThemeManager.getCurrentTheme())) {
+                	darkmodeToggleButton.setEnabled(true);  
+                	darkmodeToggleButton.setSelected(false);
                 }
             }
         };
@@ -330,9 +320,10 @@ public class ChatRoomPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
             	LookAndFeel currentTheme = ThemeManager.getCurrentTheme();
+            	Themes themes = new Themes();
             	
             	// 모드 바꾸기
-            	ThemeManager.changeMode(currentTheme);
+            	ThemeManager.switchTheme(themes.getNegative(currentTheme));
             }
         };
         darkmodeToggleButton.addActionListener(darkmodeListener);

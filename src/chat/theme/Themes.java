@@ -53,4 +53,27 @@ public class Themes {
 		FlatDarkPurpleIJTheme = new FlatDarkPurpleIJTheme();
 		FlatCarbonIJTheme = new FlatCarbonIJTheme();
 	}
+	
+	public LookAndFeel getNegative(LookAndFeel theme) {
+	    if (theme instanceof FlatLightLaf) {
+	        return FlatDarkLaf;
+	    } else if (theme instanceof FlatDarkLaf) {
+	        return FlatLightLaf;
+	    } else if (theme instanceof FlatMacLightLaf) {
+	        return FlatMacDarkLaf;
+	    } else if (theme instanceof FlatMacDarkLaf) {
+	        return FlatMacLightLaf;
+	    } else if (theme instanceof FlatArcIJTheme) {
+	        return FlatArcDarkIJTheme;
+	    } else if (theme instanceof FlatArcDarkIJTheme) {
+	        return FlatArcIJTheme;
+	    } else if (theme instanceof FlatArcOrangeIJTheme) {
+	        return FlatArcDarkOrangeIJTheme;
+	    } else if (theme instanceof FlatArcDarkOrangeIJTheme) {
+	        return FlatArcOrangeIJTheme;
+	    }
+
+	    return null;
+	}
+
 }
