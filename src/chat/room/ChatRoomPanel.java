@@ -5,13 +5,19 @@ import javax.swing.border.*;
 
 import chat.dialog.DialogManager;
 import chat.frame.FrameManager;
-import chat.frame.ThemeManager;
+import chat.theme.ThemeManager;
+import chat.theme.Themes;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import com.formdev.flatlaf.themes.*;
 
 public class ChatRoomPanel extends JPanel {
@@ -236,64 +242,100 @@ public class ChatRoomPanel extends JPanel {
 		JMenu selectTheme = new JMenu("테마 선택");
 		theme.add(selectTheme);
 		
-		JMenuItem Flatlaf = new JMenuItem("FlatLaf");
-		selectTheme.add(Flatlaf);
+		JMenuItem themeFlatlaf = new JMenuItem("FlatLaf");
+		selectTheme.add(themeFlatlaf);
 		
-		JMenuItem Mac = new JMenuItem("Mac");
-		selectTheme.add(Mac);
+		JMenuItem themeMac = new JMenuItem("Mac");
+		selectTheme.add(themeMac);
 		
-		JMenuItem Dacular = new JMenuItem("Darcular");
-		selectTheme.add(Dacular);
+		JMenuItem themeDacular = new JMenuItem("Darcular");
+		selectTheme.add(themeDacular);
 		
-		JMenuItem IntelliJ = new JMenuItem("IntelliJ");
-		selectTheme.add(IntelliJ);
+		JMenuItem themeIntelliJ = new JMenuItem("IntelliJ");
+		selectTheme.add(themeIntelliJ);
+		
+		JMenuItem themeArcIJ = new JMenuItem("ArcIJ");
+		selectTheme.add(themeArcIJ);
+		
+		JMenuItem themeArcOrange = new JMenuItem("ArcOrange");
+		selectTheme.add(themeArcOrange);
+		
+		JMenuItem themeCyanLight = new JMenuItem("CyanLight");
+		selectTheme.add(themeCyanLight);
+		
+		JMenuItem themeDarkPurple = new JMenuItem("DarkPurple");
+		selectTheme.add(themeDarkPurple);
+		
+		JMenuItem themeCarbon = new JMenuItem("Carbon");
+		selectTheme.add(themeCarbon);
 		
 		// 테마 버튼에 대한 ActionListener 추가
         ActionListener themeListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JMenuItem source = (JMenuItem) e.getSource();
-            	darkmodeToggleButton.setEnabled(true);
+            	Themes themes = ThemeManager.themes;
             	
-                if (source == Flatlaf) {
-                	DialogManager.showThemeSelectDialog(ThemeManager.themeFlatLightLaf);
-                } else if (source == Mac) {
-                	DialogManager.showThemeSelectDialog(ThemeManager.themeFlatMacLightLaf);
-                } else if (source == Dacular) {
-                	DialogManager.showThemeSelectDialog(ThemeManager.themeFlatDarculaLaf);
-                	darkmodeToggleButton.setEnabled(false);
-                } else if (source == IntelliJ) {
-                	DialogManager.showThemeSelectDialog(ThemeManager.themeFlatIntelliJLaf);
-                	darkmodeToggleButton.setEnabled(false);
+            	darkmodeToggleButton.setEnabled(true);
+            	darkmodeToggleButton.setSelected(false);
+            	
+                if (source == themeFlatlaf) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatLightLaf);
+                	DialogManager.showThemeSelectDialog(new FlatLightLaf());
+
+                } else if (source == themeMac) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatMacLightLaf);
+                	DialogManager.showThemeSelectDialog(new FlatMacLightLaf());
+                } else if (source == themeDacular) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatDarculaLaf);
+                	DialogManager.showThemeSelectDialog(new FlatDarculaLaf());
+                } else if (source == themeIntelliJ) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatIntelliJLaf);
+                	DialogManager.showThemeSelectDialog(new FlatIntelliJLaf());
+                } else if (source == themeArcIJ) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatArcIJTheme);
+                	DialogManager.showThemeSelectDialog(new FlatArcIJTheme());
+                } else if (source == themeArcOrange) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatArcOrangeIJTheme);
+                	DialogManager.showThemeSelectDialog(new FlatArcOrangeIJTheme());
+                } else if (source == themeCyanLight) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatCyanLightIJTheme);
+                	DialogManager.showThemeSelectDialog(new FlatCyanLightIJTheme());
+                } else if (source == themeDarkPurple) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatDarkPurpleIJTheme);
+                	DialogManager.showThemeSelectDialog(new FlatDarkPurpleIJTheme());
+                } else if (source == themeCarbon) {
+//                	DialogManager.showThemeSelectDialog(themes.FlatCarbonIJTheme);
+                	DialogManager.showThemeSelectDialog(new FlatCarbonIJTheme());
+                }
+                
+                // 다크모드 없는 테마일때 
+                if (!ThemeManager.hasDarkmode(ThemeManager.getCurrentTheme())) {
+                	darkmodeToggleButton.setEnabled(false);  // 다크모드 버튼 비활성화
                 }
             }
         };
-        Flatlaf.addActionListener(themeListener);
-        Mac.addActionListener(themeListener);
-        Dacular.addActionListener(themeListener);
-        IntelliJ.addActionListener(themeListener);
+        themeFlatlaf.addActionListener(themeListener);
+        themeMac.addActionListener(themeListener);
+        themeDacular.addActionListener(themeListener);
+        themeIntelliJ.addActionListener(themeListener);
+        themeArcIJ.addActionListener(themeListener);
+        themeArcOrange.addActionListener(themeListener);
+        themeCyanLight.addActionListener(themeListener);
+        themeDarkPurple.addActionListener(themeListener);
+        themeCarbon.addActionListener(themeListener);
         
-     // 다크모드에 대한 ActionListener 추가
+        // 다크모드에 대한 ActionListener 추가
         ActionListener darkmodeListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	LookAndFeel currentTheme = ThemeManager.getCurrentTheme();
             	
-            	if (darkmodeToggleButton.isSelected()) {
-            		if (ThemeManager.getCurrentTheme() instanceof FlatLightLaf) {
-                		ThemeManager.switchTheme(ThemeManager.themeFlatDarkLaf);
-                	} else if (ThemeManager.getCurrentTheme() instanceof FlatMacLightLaf) {
-                		ThemeManager.switchTheme(ThemeManager.themeFlatMacDarkLaf);
-                	}
-            	} else {
-            		if (ThemeManager.getCurrentTheme() instanceof FlatDarkLaf) {
-                		ThemeManager.switchTheme(ThemeManager.themeFlatLightLaf);
-                	} else if (ThemeManager.getCurrentTheme() instanceof FlatMacDarkLaf) {
-                		ThemeManager.switchTheme(ThemeManager.themeFlatMacLightLaf);
-                	}
-            	}
+            	// 모드 바꾸기
+            	ThemeManager.changeMode(currentTheme);
             }
         };
-        
         darkmodeToggleButton.addActionListener(darkmodeListener);
+        
 	}
 }

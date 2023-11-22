@@ -3,12 +3,12 @@ package chat.dialog;
 import javax.swing.*;
 
 import chat.frame.FrameManager;
-import chat.frame.ThemeManager;
+import chat.theme.ThemeManager;
 
 public class ThemeSelectDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 
-	public ThemeSelectDialog(String theme) {
+	public ThemeSelectDialog(LookAndFeel theme) {
         
         int result = JOptionPane.showOptionDialog(
                 this,

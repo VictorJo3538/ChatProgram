@@ -19,7 +19,6 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameManager.init();  // 프레임매니저 초기화
 					FrameManager.getLoginFrame().setVisible(true);  // 로그인 프레임 보이기
 				} catch (Exception e) {
 					e.printStackTrace();
