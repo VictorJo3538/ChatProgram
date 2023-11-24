@@ -19,8 +19,7 @@ public class ThemeManager {
 			// 원하는 테마에 맞게 수정 
 			UIManager.setLookAndFeel(theme);
 			SwingUtilities.updateComponentTreeUI(FrameManager.getChatRoomFrame()); // 채팅방 프레임 테마 변경
-			SwingUtilities.updateComponentTreeUI(FrameManager.getLoginFrame()); // 로그인 프레임 테마 변경
-			System.out.println(theme);
+			SwingUtilities.updateComponentTreeUI(FrameManager.getLoginFrame()); // 로그인 프레임 테마 변경123
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

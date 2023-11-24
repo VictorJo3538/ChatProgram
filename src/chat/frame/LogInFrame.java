@@ -23,7 +23,7 @@ public class LogInFrame extends JFrame {
 		int y = (screenSize.height - frameHeight) / 2;
 				
 		setTitle("고양이뱃살(Go!Bat) - 로그인 화면");
-		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 프레임 아이콘.png");
+		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 아이콘.png");
         setIconImage(icon);
 		setResizable(false);  // 창변경금지
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

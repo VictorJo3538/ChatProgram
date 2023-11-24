@@ -2,7 +2,6 @@ package chat.dialog;
 
 import javax.swing.*;
 
-import chat.frame.FrameManager;
 import chat.theme.ThemeManager;
 
 public class ThemeSelectDialog extends JDialog {
@@ -13,7 +12,7 @@ public class ThemeSelectDialog extends JDialog {
         int result = JOptionPane.showOptionDialog(
                 this,
                 "이 테마를 선택 하시겠습니까?",
-                "로그아웃 확인",
+                "테마선택 확인",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,

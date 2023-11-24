@@ -23,8 +23,8 @@ public class LoginPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel iconLabel = new JLabel("고양이 이미지");
+		iconLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/Img/loginCat2.png")));
 		iconLabel.setBounds(0, 0, 728, 287);
-		iconLabel.setIcon(new ImageIcon(LoginPanel.class.getResource("/Img/loginCat.png")));
 		add(iconLabel);
 		
 		JPanel panel = new JPanel();

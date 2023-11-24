@@ -1,15 +1,19 @@
 package chat.frame;
 
-import java.util.*;
-
 import javax.swing.*;
 
-import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.themes.*;
-
 public class FrameManager {
-	static JFrame chatRoom = new ChatRoomFrame();
-	static JFrame loginFrame = new LogInFrame();
+	static JFrame chatRoom;
+	static JFrame loginFrame;
+	static {
+		try {
+			loginFrame = new LogInFrame();
+			chatRoom = new ChatRoomFrame();
+		} catch (Exception e) {
+			System.out.println("스태틱 예외발생");
+			System.out.println(e.getStackTrace());
+		}
+	}
     
     public static JFrame getChatRoomFrame() {
     	return chatRoom;

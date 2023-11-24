@@ -32,7 +32,7 @@ public class RegisterPanel extends JPanel {
 		// 고양이 이미지 생성
 		JLabel logoPanel = new JLabel("고양이이미지");
 		logoPanel.setBounds(0, 0, 728, 287);
-		logoPanel.setIcon(new ImageIcon(RegisterPanel.class.getResource("/Img/loginCat.png")));
+		logoPanel.setIcon(new ImageIcon(RegisterPanel.class.getResource("/Img/loginCat2.png")));
 		panel.add(logoPanel);
 		
 		JLabel idLabel = new JLabel("아이디 입력");

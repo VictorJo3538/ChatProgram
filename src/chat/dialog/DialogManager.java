@@ -1,7 +1,6 @@
 package chat.dialog;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.LookAndFeel;
 
 public class DialogManager extends JDialog {
@@ -14,4 +13,13 @@ public class DialogManager extends JDialog {
 	public static void showThemeSelectDialog(LookAndFeel theme) {
 		new ThemeSelectDialog(theme);
 	}
+	
+	public static void showMaxRoomDialog() {
+		new MaxRoomDialog();
+	}
+	
+	public static void showMinRoomDialog() {
+		new MinRoomDialog();
+	}
+	
 }

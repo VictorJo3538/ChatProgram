@@ -16,14 +16,14 @@ public class ChatRoomFrame extends JFrame {
 	private JPanel contentPane;
 	
 	// 스크린 사이즈 가져와서 프레임이 중앙으로 오게 설정
-	int frameWidth = 1010, frameHeight = 560; // 기본 프레임 크기 설정
+	int frameWidth = 1010, frameHeight = 600; // 기본 프레임 크기 설정
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int x = (screenSize.width - frameWidth) / 2;
 	int y = (screenSize.height - frameHeight) / 2;
 			
 	public ChatRoomFrame() {
 		setTitle("고양이뱃살(Go!Bat) - 채팅화면");
-		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 프레임 아이콘.png");
+		Image icon = Toolkit.getDefaultToolkit().getImage("고뱃 아이콘.png");
 		setIconImage(icon);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(frameWidth, frameHeight);
@@ -52,8 +52,8 @@ public class ChatRoomFrame extends JFrame {
             addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    int maxWidth = 1010;
-                    int maxHeight = 560;
+                    int maxWidth = frameWidth;
+                    int maxHeight = frameHeight;
 
                     if (getWidth() > maxWidth || getHeight() > maxHeight) {
                     	setSize(maxWidth, maxHeight);
