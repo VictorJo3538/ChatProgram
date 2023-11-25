@@ -15,7 +15,7 @@ public class Main {
 		
 		// flatlaf 테마 적용
 		try {
-			UIManager.setLookAndFeel(ThemeManager.themes.FlatCyanLightIJTheme);
+			UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
 		} catch (Exception e) {
 			System.err.println("Failed to initialize LaF");
 		}
