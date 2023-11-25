@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 public class ChatRoomPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
 
 	public ChatRoomPanel() {
 		setBounds(0, 0, 1000, 560);
@@ -27,8 +26,80 @@ public class ChatRoomPanel extends JPanel {
 		add(leftMenuPanel);
 		leftMenuPanel.setLayout(null);
 		
+		// 중앙패널
+		JPanel centerPanel = new JPanel();
+		centerPanel.setToolTipText("공백");
+		centerPanel.setBounds(300, 60, 500, 500);
+		centerPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, new Color(128, 128, 128), null));
+		add(centerPanel);
+		centerPanel.setLayout(null);
+
+		// 중앙 하단 텍스트필드
+		JPanel textFieldPanel = new JPanel();
+		textFieldPanel.setBounds(0, 450, 500, 50);
+		centerPanel.add(textFieldPanel);
+		textFieldPanel.setLayout(null);
+		
+		JTextField textField = new JTextField();
+		textField.setBounds(0, 0, 450, 50);
+		textFieldPanel.add(textField);
+		textField.setColumns(10);
+		
+		JButton goButton = new JButton("");
+		goButton.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton.setBackground(Color.LIGHT_GRAY);
+		goButton.setBounds(450, 0, 50, 50);
+		textFieldPanel.add(goButton);
+		
+		// 채팅 화면 구현
+		CardLayout cardLayout = new CardLayout(); // 카드 레이아웃 생성
+		JPanel textAreaPanel = new JPanel(cardLayout);
+		textAreaPanel.setBounds(0, 0, 500, 450);
+		textAreaPanel.setVisible(false);
+		centerPanel.add(textAreaPanel);
+//		textAreaPanel.setCaretPosition(textArea.getDocument().getLength());  // 자동 스크롤 함수구현
+
+		// 채팅 텍스트 에리아 생성
+		JTextArea r0TextArea = new JTextArea();
+		JScrollPane r0ScrollPane = new JScrollPane(r0TextArea);
+		r0ScrollPane.setSize(500, 450);
+		textAreaPanel.add("r1", r0ScrollPane);
+
+		JTextArea r1TextArea = new JTextArea();
+		JScrollPane r1ScrollPane = new JScrollPane(r1TextArea);
+		r1ScrollPane.setSize(500, 450);
+		textAreaPanel.add("r2", r1ScrollPane);
+
+		JTextArea r2TextArea = new JTextArea();
+		JScrollPane r2ScrollPane = new JScrollPane(r2TextArea);
+		r2ScrollPane.setSize(500, 450);
+		textAreaPanel.add("r3", r2ScrollPane);
+
+		JTextArea r3TextArea = new JTextArea();
+		JScrollPane r3ScrollPane = new JScrollPane(r3TextArea);
+		r3ScrollPane.setSize(500, 450);
+		textAreaPanel.add("r4", r3ScrollPane);
+
+		JTextArea r4TextArea = new JTextArea();
+		JScrollPane r4ScrollPane = new JScrollPane(r4TextArea);
+		r4ScrollPane.setSize(500, 450);
+		textAreaPanel.add("r5", r4ScrollPane);
+		
+		JLabel centerIconLabel = new JLabel("");
+		centerIconLabel.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/센터 아이콘.png")));  // 중앙 아이콘 설정
+		centerIconLabel.setBounds(0, 0, 500, 500);
+		centerPanel.add(centerIconLabel);
+		
 		// 채팅방 객체 초기화
 		ChatRoomManager chatRooms = new ChatRoomManager();
+		
+		// 버튼 로직 클래스
+		class ChatRoomButton {
+			public static void pressButton(JPanel textAreaPanel, String rnum, CardLayout cardLayout) {
+				textAreaPanel.setVisible(true);
+				cardLayout.show(textAreaPanel, rnum);
+			}
+		}
 		
 		// 채팅방 1
 		JPanel roomSelctPanel0 = new JPanel();
@@ -39,11 +110,16 @@ public class ChatRoomPanel extends JPanel {
 		
 		JButton goButton0 = new JButton("");
 		goButton0.setBounds(238, 20, 50, 50);
-		goButton0.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton0.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/채팅방 숨기기.png")));
 		goButton0.setBackground(Color.LIGHT_GRAY);
 		roomSelctPanel0.add(goButton0);
 		
 		JButton roomTitleButton0 = new JButton("채팅방 1");  
+		roomTitleButton0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatRoomButton.pressButton(textAreaPanel, "r1", cardLayout);
+			}
+		});
 		roomTitleButton0.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton0.setBounds(12, 20, 214, 50);
 		roomSelctPanel0.add(roomTitleButton0);
@@ -60,10 +136,15 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton1 = new JButton("");
 		goButton1.setBackground(Color.LIGHT_GRAY);
 		goButton1.setBounds(238, 20, 50, 50);
-		goButton1.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton1.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/채팅방 숨기기.png")));
 		roomSelctPanel1.add(goButton1);
 		
 		JButton roomTitleButton1 = new JButton("채팅방 2");  
+		roomTitleButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatRoomButton.pressButton(textAreaPanel, "r2", cardLayout);
+			}
+		});
 		roomTitleButton1.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton1.setBounds(12, 20, 214, 50);
 		roomSelctPanel1.add(roomTitleButton1);
@@ -80,10 +161,15 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton2 = new JButton("");
 		goButton2.setBackground(Color.LIGHT_GRAY);
 		goButton2.setBounds(238, 20, 50, 50);
-		goButton2.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton2.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/채팅방 숨기기.png")));
 		roomSelctPanel2.add(goButton2);
 		
 		JButton roomTitleButton2 = new JButton("채팅방 3");  
+		roomTitleButton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatRoomButton.pressButton(textAreaPanel, "r3", cardLayout);
+			}
+		});
 		roomTitleButton2.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton2.setBounds(12, 20, 214, 50);
 		roomSelctPanel2.add(roomTitleButton2);
@@ -100,10 +186,15 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton3 = new JButton("");
 		goButton3.setBackground(Color.LIGHT_GRAY);
 		goButton3.setBounds(238, 20, 50, 50);
-		goButton3.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton3.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/채팅방 숨기기.png")));
 		roomSelctPanel3.add(goButton3);
 		
 		JButton roomTitleButton3 = new JButton("채팅방 4");  // 
+		roomTitleButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatRoomButton.pressButton(textAreaPanel, "r4", cardLayout);
+			}
+		});
 		roomTitleButton3.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton3.setBounds(12, 20, 214, 50);
 		roomSelctPanel3.add(roomTitleButton3);
@@ -118,60 +209,37 @@ public class ChatRoomPanel extends JPanel {
 		leftMenuPanel.add(roomSelctPanel4);
 		
 		JButton goButton4 = new JButton("");
-		goButton4.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
+		goButton4.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/채팅방 숨기기.png")));
 		goButton4.setBackground(Color.LIGHT_GRAY);
 		goButton4.setBounds(238, 20, 50, 50);
 		roomSelctPanel4.add(goButton4);
 		
 		JButton roomTitleButton4 = new JButton("채팅방 5");  // 5번 채팅방 이름 가져오기
+		roomTitleButton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChatRoomButton.pressButton(textAreaPanel, "r5", cardLayout);
+			}
+		});
 		roomTitleButton4.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton4.setBounds(12, 20, 214, 50);
 		roomSelctPanel4.add(roomTitleButton4);
 		chatRooms.addRoom(roomTitleButton4.getText(), roomSelctPanel4);  // 5번 채팅방 버튼, 이름 가져오기
-		//
 		
-		
+		// 왼쪽 패널 아이콘 설정
 		JLabel leftIconLabel = new JLabel("");
 		leftIconLabel.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/왼쪽 아이콘.png")));
 		leftIconLabel.setBounds(0, 0, 300, 500);
 		leftMenuPanel.add(leftIconLabel);
 		
-		JPanel centerPanel = new JPanel();
-		centerPanel.setBounds(300, 60, 500, 500);
-		centerPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, new Color(128, 128, 128), null));
-		add(centerPanel);
-		centerPanel.setLayout(null);
-		
-		JPanel textAreaPanel = new JPanel();
-		textAreaPanel.setBounds(0, 0, 500, 450);
-		textAreaPanel.setVisible(false);
-		centerPanel.add(textAreaPanel);
-		
-		JPanel textFIeldPanel = new JPanel();
-		textFIeldPanel.setBounds(0, 450, 500, 50);
-		centerPanel.add(textFIeldPanel);
-		textFIeldPanel.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(0, 0, 450, 50);
-		textFIeldPanel.add(textField);
-		textField.setColumns(10);
-		
-		JButton goButton = new JButton("");
-		goButton.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/고뱃 입장 아이콘.png")));
-		goButton.setBackground(Color.LIGHT_GRAY);
-		goButton.setBounds(450, 0, 50, 50);
-		textFIeldPanel.add(goButton);
-		
-		JLabel centerIconLabel = new JLabel("");
-		centerIconLabel.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/센터 아이콘.png")));
-		centerIconLabel.setBounds(0, 0, 500, 500);
-		centerPanel.add(centerIconLabel);
-		
+		// 우측 메뉴 패널
 		JPanel rightMenuPanel = new JPanel();
 		rightMenuPanel.setBounds(800, 60, 200, 500);
 		rightMenuPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, new Color(128, 128, 128), null));
 		add(rightMenuPanel);
+		
+		JLabel rightIconLabel = new JLabel("");
+		rightIconLabel.setIcon(new ImageIcon(ChatRoomPanel.class.getResource("/Img/길쭉고양이.png")));
+		rightMenuPanel.add(rightIconLabel);
 		
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBounds(0, 20, 1000, 40);
@@ -262,7 +330,7 @@ public class ChatRoomPanel extends JPanel {
 		settings.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		leftMenuBar.add(settings);
 		
-		// 라디오 버튼 그룹 생성
+		// 설정 라디오 버튼 그룹 생성
         ButtonGroup windowLockGroup = new ButtonGroup();
 		
 		JMenu setWindow = new JMenu("창 변경 설정");
@@ -278,7 +346,7 @@ public class ChatRoomPanel extends JPanel {
 		windowLockGroup.add(windowUnlock);
 		
 		JMenuItem informMenuItem = new JMenuItem("(크기는 줄이기만 가능...)");
-		informMenuItem.setFont(new Font("맑은 고딕", Font.BOLD | Font.ITALIC, 12));
+		informMenuItem.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		informMenuItem.setEnabled(false);
 		setWindow.add(informMenuItem);
 		
@@ -288,6 +356,23 @@ public class ChatRoomPanel extends JPanel {
 		menuBar.setBounds(900, 0, 100, 23);
 		add(menuBar);
 		
+		// 설정 라디오 버튼에 대한 ActionListener 추가
+        ActionListener settingsRadioListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (windowLock.isSelected()) {
+                	FrameManager.getChatRoomFrame().setSize(1010, 530);
+                    FrameManager.getChatRoomFrame().setResizable(false);
+                } else if (windowUnlock.isSelected()) {
+                	FrameManager.getChatRoomFrame().setResizable(true);
+                }
+            }
+        };
+        windowLock.addActionListener(settingsRadioListener);
+        windowUnlock.addActionListener(settingsRadioListener);
+        
+        
+        // 테마 메뉴
 		JToggleButton darkmodeToggleButton = new JToggleButton("다크모드");
 		darkmodeToggleButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		darkmodeToggleButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
@@ -301,49 +386,52 @@ public class ChatRoomPanel extends JPanel {
 		JMenu selectTheme = new JMenu("테마 선택");
 		theme.add(selectTheme);
 		
-		JMenuItem themeFlatlaf = new JMenuItem("FlatLaf");
+		// 테마 라디오 버튼 그룹 생성
+        ButtonGroup themeLockGroup = new ButtonGroup();
+		
+		JMenuItem themeFlatlaf = new JRadioButtonMenuItem("FlatLaf");
 		selectTheme.add(themeFlatlaf);
+		themeLockGroup.add(themeFlatlaf);
 		
-		JMenuItem themeMac = new JMenuItem("Mac");
+		JMenuItem themeMac = new JRadioButtonMenuItem("Mac");
 		selectTheme.add(themeMac);
+		themeLockGroup.add(themeMac);
 		
-		JMenuItem themeDacular = new JMenuItem("Darcular");
+		JMenuItem themeDacular = new JRadioButtonMenuItem("Darcular");
 		selectTheme.add(themeDacular);
+		themeLockGroup.add(themeDacular);
 		
-		JMenuItem themeIntelliJ = new JMenuItem("IntelliJ");
+		JMenuItem themeIntelliJ = new JRadioButtonMenuItem("IntelliJ");
 		selectTheme.add(themeIntelliJ);
+		themeLockGroup.add(themeIntelliJ);
 		
-		JMenuItem themeArcIJ = new JMenuItem("ArcIJ");
+		JMenuItem themeArcIJ = new JRadioButtonMenuItem("ArcIJ");
 		selectTheme.add(themeArcIJ);
+		themeLockGroup.add(themeArcIJ);
 		
-		JMenuItem themeArcOrange = new JMenuItem("ArcOrange");
+		JMenuItem themeArcOrange = new JRadioButtonMenuItem("ArcOrange");
 		selectTheme.add(themeArcOrange);
+		themeLockGroup.add(themeArcOrange);
 		
-		JMenuItem themeCyanLight = new JMenuItem("CyanLight");
+		JMenuItem themeCyanLight = new JRadioButtonMenuItem("CyanLight");
+		themeCyanLight.setSelected(true);
 		selectTheme.add(themeCyanLight);
+		themeLockGroup.add(themeCyanLight);
 		
-		JMenuItem themeDarkPurple = new JMenuItem("DarkPurple");
+		JMenuItem themeDarkPurple = new JRadioButtonMenuItem("DarkPurple");
 		selectTheme.add(themeDarkPurple);
+		themeLockGroup.add(themeDarkPurple);
 		
-		JMenuItem themeCarbon = new JMenuItem("Carbon");
+		JMenuItem themeCarbon = new JRadioButtonMenuItem("Carbon");
 		selectTheme.add(themeCarbon);
+		themeLockGroup.add(themeCarbon);
 		
-		// 라디오 버튼에 대한 ActionListener 추가
-        ActionListener radioListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (windowLock.isSelected()) {
-                	FrameManager.getChatRoomFrame().setSize(1010, 530);
-                    FrameManager.getChatRoomFrame().setResizable(false);
-                } else if (windowUnlock.isSelected()) {
-                	FrameManager.getChatRoomFrame().setResizable(true);
-                }
-            }
-        };
-        windowLock.addActionListener(radioListener);
-        windowUnlock.addActionListener(radioListener);
+		JRadioButtonMenuItem themeDefault = new JRadioButtonMenuItem("스윙 기본 테마");
+		selectTheme.add(themeDefault);
+		themeLockGroup.add(themeDefault);
 		
-		// 테마 버튼에 대한 ActionListener 추가
+		
+		// 테마 라디오 버튼에 대한 ActionListener 추가
         ActionListener themeListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -370,6 +458,11 @@ public class ChatRoomPanel extends JPanel {
             	    DialogManager.showThemeSelectDialog(themes.FlatDarkPurpleIJTheme);
             	} else if (source == themeCarbon) {
             	    DialogManager.showThemeSelectDialog(themes.FlatCarbonIJTheme);
+            	} 
+            	
+            	// 스윙 기본테마로 돌아가기
+            	else if (source == themeDefault) {
+            		DialogManager.showThemeSelectDialog(themes.DefaultTheme);  
             	}
                 
                 // 다크모드 있는 테마일때 
@@ -388,6 +481,7 @@ public class ChatRoomPanel extends JPanel {
         themeCyanLight.addActionListener(themeListener);
         themeDarkPurple.addActionListener(themeListener);
         themeCarbon.addActionListener(themeListener);
+        themeDefault.addActionListener(themeListener);
         
         // 다크모드에 대한 ActionListener 추가
         ActionListener darkmodeListener = new ActionListener() {

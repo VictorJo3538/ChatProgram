@@ -5,14 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+
+import chat.theme.ThemeManager;
 
 public class Main {
 	// 어플리케이션 실행
 	public static void main(String[] args) {
+		
 		// flatlaf 테마 적용
 		try {
-			UIManager.setLookAndFeel(new FlatIntelliJLaf());
-		} catch (Exception ex) {
+			UIManager.setLookAndFeel(ThemeManager.themes.FlatCyanLightIJTheme);
+		} catch (Exception e) {
 			System.err.println("Failed to initialize LaF");
 		}
 

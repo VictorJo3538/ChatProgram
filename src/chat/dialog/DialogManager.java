@@ -21,5 +21,4 @@ public class DialogManager extends JDialog {
 	public static void showMinRoomDialog() {
 		new MinRoomDialog();
 	}
-	
 }

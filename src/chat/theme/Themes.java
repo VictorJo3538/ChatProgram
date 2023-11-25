@@ -1,6 +1,7 @@
 package chat.theme;
 
 import javax.swing.LookAndFeel;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -33,6 +34,7 @@ public class Themes {
 	public LookAndFeel FlatCyanLightIJTheme;
 	public LookAndFeel FlatDarkPurpleIJTheme;
 	public LookAndFeel FlatCarbonIJTheme;
+	public LookAndFeel DefaultTheme;
 	
 	public Themes( ){
 		// 다크모드 있는거
@@ -52,8 +54,12 @@ public class Themes {
 		FlatCyanLightIJTheme = new FlatCyanLightIJTheme();
 		FlatDarkPurpleIJTheme = new FlatDarkPurpleIJTheme();
 		FlatCarbonIJTheme = new FlatCarbonIJTheme();
+		
+		// 기본테마
+		DefaultTheme = new MetalLookAndFeel();
 	}
 	
+	// 다크모드 <-> 기본모드
 	public LookAndFeel getNegative(LookAndFeel theme) {
 	    if (theme instanceof FlatLightLaf) {
 	        return FlatDarkLaf;

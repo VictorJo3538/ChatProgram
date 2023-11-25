@@ -59,7 +59,6 @@ public class LoginPanel extends JPanel {
 				((LogInFrame) FrameManager.getLoginFrame()).showRegisterPanel();
 			}
 		});
-		registerButton.setBackground(new Color(240, 252, 255));
 		registerButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		registerButton.setBounds(12, 240, 104, 23);
 		panel.add(registerButton);
@@ -85,7 +84,6 @@ public class LoginPanel extends JPanel {
 		
 		JButton loginButton = new JButton("로그인Go!");
 		loginButton.setForeground(Color.BLACK);
-		loginButton.setBackground(new Color(204, 255, 255));
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				wrongInputWarningLabel.setVisible(false);

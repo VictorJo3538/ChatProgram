@@ -11,13 +11,13 @@ public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JPanel contentPane;
 	// CardLayout을 사용할 패널 생성
-    CardLayout cardLayout = new CardLayout();
-    JPanel cards = new JPanel(cardLayout);
+    CardLayout cards = new CardLayout();
+    JPanel mainPanel = new JPanel(cards);
     
 	// 프레임 제작
 	public LogInFrame() {
 		// 스크린 사이즈 가져와서 프레임이 중앙으로 오게 설정
-		int frameWidth = 728, frameHeight = 600; // 기본 프레임 크기 설정
+		int frameWidth = 730, frameHeight = 600; // 기본 프레임 크기 설정
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screenSize.width - frameWidth) / 2;
 		int y = (screenSize.height - frameHeight) / 2;
@@ -31,7 +31,6 @@ public class LogInFrame extends JFrame {
 		setLocation(x, y);
 		
 		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setSize(frameWidth, frameHeight);
 
 		setContentPane(contentPane);
@@ -40,19 +39,19 @@ public class LogInFrame extends JFrame {
 		JPanel loginPanel = new LoginPanel();
 		JPanel RegisterPanel = new RegisterPanel();
 		
-		cards.add("LoginPanel", loginPanel);  // 로그인 패널 추가
-		cards.add("RegisterPanel", RegisterPanel);  // 회원가입 패널 추가
+		mainPanel.add("LoginPanel", loginPanel);  // 로그인 패널 추가
+		mainPanel.add("RegisterPanel", RegisterPanel);  // 회원가입 패널 추가
 		
-		contentPane.add(cards);
+		contentPane.add(mainPanel);
 		
 	}
 	
 	public void showRegisterPanel( ) {
-		cardLayout.show(cards, "RegisterPanel");
+		cards.show(mainPanel, "RegisterPanel");
 	}
 	
 	public void showLoginPanel() {
-		cardLayout.show(cards, "LoginPanel");
+		cards.show(mainPanel, "LoginPanel");
 	}
 
 }

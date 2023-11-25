@@ -10,7 +10,7 @@ public class FrameManager {
 			loginFrame = new LogInFrame();
 			chatRoom = new ChatRoomFrame();
 		} catch (Exception e) {
-			System.out.println("스태틱 예외발생");
+			System.out.println("프레임 초기화 불가 예외발생");
 			System.out.println(e.getStackTrace());
 		}
 	}
