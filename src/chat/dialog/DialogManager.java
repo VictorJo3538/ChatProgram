@@ -3,6 +3,8 @@ package chat.dialog;
 import javax.swing.JDialog;
 import javax.swing.LookAndFeel;
 
+import chat.room.ChatRoomManager;
+
 public class DialogManager extends JDialog {
 	private static final long serialVersionUID = 1L;
 
@@ -20,5 +22,9 @@ public class DialogManager extends JDialog {
 	
 	public static void showMinRoomDialog() {
 		new MinRoomDialog();
+	}
+	
+	public static void showChatRoomTitleDialog(ChatRoomManager roomManager) {
+		new ChatRoomTitleDialog(roomManager);
 	}
 }

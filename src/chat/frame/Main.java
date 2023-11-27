@@ -4,10 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import com.formdev.flatlaf.*;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 
-import chat.theme.ThemeManager;
 
 public class Main {
 	// 어플리케이션 실행

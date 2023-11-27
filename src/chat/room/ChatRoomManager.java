@@ -1,18 +1,19 @@
 package chat.room;
 
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ChatRoomManager {
 	LinkedList<String> roomlist = new LinkedList<String>();
+	ArrayList<JButton> roomButtonList = new ArrayList<JButton>();
 	String head;
 	JPanel textAreaPanel;
 	CardLayout cardLayout;
-	JLabel titleLabel;
+	JButton titleButton;  // 중앙 상단 방제 버튼
 	
 	public ChatRoomManager(JPanel textAreaPanel, CardLayout cardLayout) {
 		this.textAreaPanel = textAreaPanel;
@@ -43,25 +44,46 @@ public class ChatRoomManager {
 		// 화면 하나남은 경우
 		if(roomlist.size() == 1) {
 			textAreaPanel.setVisible(false);
-			
+			titleButton.setText("채팅방 클릭하여 시작");
 			return;
 		}
 		// 첫번째 요소를 없애는 경우 가장 마지막 페이지 보이기
 		if (index == 0) {
 			head = roomlist.getLast();
 			cardLayout.show(textAreaPanel, head);
+			updateTitleButton();
 			return;
 		}
 		// 아닌 경우에는 이전 페이지 보이기
 		head = roomlist.get(index-1);
 		cardLayout.show(textAreaPanel, head);
+		updateTitleButton();
 	}
 	
-	public void getTitleLabel(JLabel titleLabel) {
-		this.titleLabel = titleLabel;
+	public void setTitleButton(JButton titleButton) {
+		this.titleButton = titleButton;
 	}
 	
-	public void setTitle(JButton button) {
-		titleLabel.setText(button.getText());
+	public JButton getTitleButton() {
+		return titleButton;
+	}
+	
+	private void updateTitleButton() {
+		// head를 기준으로 타이틀 변경
+		titleButton.setText(roomButtonList.get(Character.getNumericValue(head.charAt(1) - 1)).getText());
+	}
+	
+	public void addRoomButtonlist(JButton roomButton) {
+		roomButtonList.add(roomButton);
+	}
+	
+	public void setRoomTitle(String title) {
+		int index = Character.getNumericValue(head.charAt(1)) - 1;  // "rn"의 숫자 n 가져오기
+		roomButtonList.get(index).setText(title);
+		titleButton.setText(title);
+	}
+	
+	public int getActivatedRooms() {
+		return roomlist.size();
 	}
 }

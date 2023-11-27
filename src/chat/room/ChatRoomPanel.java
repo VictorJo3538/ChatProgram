@@ -10,7 +10,6 @@ import chat.theme.Themes;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class ChatRoomPanel extends JPanel {
@@ -99,7 +98,7 @@ public class ChatRoomPanel extends JPanel {
 		
 		// 채팅방 객체, 채팅방 셀렉터 초기화
 		ChatRoomLimiter chatRooms = new ChatRoomLimiter();
-		ChatRoomManager roomSelector = new ChatRoomManager(textAreaPanel, cardLayout);
+		ChatRoomManager roomManager = new ChatRoomManager(textAreaPanel, cardLayout);
 		
 		// 메뉴패널 중앙
 		JPanel menuCenterPanel = new JPanel();
@@ -108,10 +107,18 @@ public class ChatRoomPanel extends JPanel {
 		menuPanel.add(menuCenterPanel);
 		menuCenterPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JLabel roomName = new JLabel("현재 채팅방 없음");
-		roomName.setFont(new Font("맑은 고딕 Semilight", Font.BOLD, 20));
+		JButton roomName = new JButton("채팅방 클릭하여 시작");
+		roomName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (roomManager.getActivatedRooms() == 0) {
+					return;
+				}
+				DialogManager.showChatRoomTitleDialog(roomManager);
+			}
+		});
+		roomName.setFont(new Font("맑은 고딕 Semilight", Font.BOLD, 14));
 		menuCenterPanel.add(roomName);
-		roomSelector.getTitleLabel(roomName);
+		roomManager.setTitleButton(roomName);
 
 		// 메뉴패널 우측
 		JPanel menuRightPanel = new JPanel();
@@ -181,7 +188,7 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton0 = new JButton("");
 		goButton0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.closeRoom("r1");
+				roomManager.closeRoom("r1");
 				goButton0.setVisible(false);
 				
 			}
@@ -195,9 +202,9 @@ public class ChatRoomPanel extends JPanel {
 		JButton roomTitleButton0 = new JButton("채팅방 1");  
 		roomTitleButton0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.showRoom("r1");
+				roomManager.showRoom("r1");
 				goButton0.setVisible(true);
-				roomSelector.setTitle(roomTitleButton0);
+				roomManager.getTitleButton().setText(roomTitleButton0.getText());
 			}
 		});
 		roomTitleButton0.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
@@ -216,7 +223,7 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton1 = new JButton("");
 		goButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.closeRoom("r2");
+				roomManager.closeRoom("r2");
 				goButton1.setVisible(false);
 			}
 		});
@@ -229,9 +236,9 @@ public class ChatRoomPanel extends JPanel {
 		JButton roomTitleButton1 = new JButton("채팅방 2");  
 		roomTitleButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.showRoom("r2");
+				roomManager.showRoom("r2");
 				goButton1.setVisible(true);
-				roomSelector.setTitle(roomTitleButton1);
+				roomManager.getTitleButton().setText(roomTitleButton1.getText());
 			}
 		});
 		roomTitleButton1.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
@@ -250,7 +257,7 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton2 = new JButton("");
 		goButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.closeRoom("r3");
+				roomManager.closeRoom("r3");
 				goButton2.setVisible(false);
 			}
 		});
@@ -263,9 +270,9 @@ public class ChatRoomPanel extends JPanel {
 		JButton roomTitleButton2 = new JButton("채팅방 3");  
 		roomTitleButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.showRoom("r3");
+				roomManager.showRoom("r3");
 				goButton2.setVisible(true);
-				roomSelector.setTitle(roomTitleButton2);
+				roomManager.getTitleButton().setText(roomTitleButton2.getText());
 			}
 		});
 		roomTitleButton2.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
@@ -284,7 +291,7 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton3 = new JButton("");
 		goButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.closeRoom("r4");
+				roomManager.closeRoom("r4");
 				goButton3.setVisible(false);
 			}
 		});
@@ -297,9 +304,9 @@ public class ChatRoomPanel extends JPanel {
 		JButton roomTitleButton3 = new JButton("채팅방 4");  // 
 		roomTitleButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.showRoom("r4");
+				roomManager.showRoom("r4");
 				goButton3.setVisible(true);
-				roomSelector.setTitle(roomTitleButton3);
+				roomManager.getTitleButton().setText(roomTitleButton3.getText());
 			}
 		});
 		roomTitleButton3.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
@@ -318,7 +325,7 @@ public class ChatRoomPanel extends JPanel {
 		JButton goButton4 = new JButton("");
 		goButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.closeRoom("r5");
+				roomManager.closeRoom("r5");
 				goButton4.setVisible(false);
 			}
 		});
@@ -331,15 +338,22 @@ public class ChatRoomPanel extends JPanel {
 		JButton roomTitleButton4 = new JButton("채팅방 5");  // 5번 채팅방 이름 가져오기
 		roomTitleButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				roomSelector.showRoom("r5");
+				roomManager.showRoom("r5");
 				goButton4.setVisible(true);
-				roomSelector.setTitle(roomTitleButton4);
+				roomManager.getTitleButton().setText(roomTitleButton4.getText());
 			}
 		});
 		roomTitleButton4.setFont(new Font("맑은 고딕", Font.PLAIN, 22));
 		roomTitleButton4.setBounds(12, 20, 214, 50);
 		roomSelctPanel4.add(roomTitleButton4);
 		chatRooms.addRoom(roomTitleButton4.getText(), roomSelctPanel4);  // 5번 채팅방 버튼, 이름 가져오기
+		
+		// 방 버튼 리스트 초기화
+		roomManager.addRoomButtonlist(roomTitleButton0);
+		roomManager.addRoomButtonlist(roomTitleButton1);
+		roomManager.addRoomButtonlist(roomTitleButton2);
+		roomManager.addRoomButtonlist(roomTitleButton3);
+		roomManager.addRoomButtonlist(roomTitleButton4);
 		
 		// 왼쪽 패널 아이콘 설정
 		JLabel leftIconLabel = new JLabel("");
