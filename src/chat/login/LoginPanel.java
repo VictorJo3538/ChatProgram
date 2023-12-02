@@ -6,6 +6,7 @@ import chat.dialog.DialogManager;
 import chat.frame.FrameManager;
 import chat.frame.LogInFrame;
 import chat.server.Client;
+import chat.server.Client.Login;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -111,7 +112,8 @@ public class LoginPanel extends JPanel {
 				}
 				
 				// 로그인 시도
-				if(!Client.sendLoginRequest(uid, password)) {	//오류
+				Login.sendRequest(uid, password);  // 로그인 요청 보내기
+				if(!Login.getResponse()) {	//오류
 					wrongInputWarningLabel.setVisible(true);
 					DialogManager.showLoginFailedDialog();
 					return;
