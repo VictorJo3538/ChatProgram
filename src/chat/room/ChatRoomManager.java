@@ -3,6 +3,8 @@ package chat.room;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -11,6 +13,7 @@ import javax.swing.text.*;
 import javax.swing.text.html.HTMLDocument;
 
 import chat.dialog.DialogManager;
+import chat.server.Client;
 import chat.user.User;
 
 public class ChatRoomManager {
@@ -177,8 +180,7 @@ public class ChatRoomManager {
 			textField.addActionListener(new ActionListener() {
 				@Override  // 텍스트 필드에서 Enter 키를 눌렀을 때 실행할 로직
 				public void actionPerformed(ActionEvent e) {
-					int TEMP_ID = 1234;
-					User user = new User(TEMP_ID, "임시닉네임");  // 유저 객체 가져오기 (로그인 성공시에 객체 생성하도록 로직 작성)
+					String userName = Client.userName;
 					
 					// 아무 채팅방도 안보고 있으면 채팅 못치게 막기
 					if (topIndex == -1) {
@@ -186,10 +188,10 @@ public class ChatRoomManager {
 					}
 					//
 
-					String text = formatText(textField.getText(), user);  // 텍스트 필드에서 텍스트 가져와 포매팅
+					String text = formatText(textField.getText(), userName);  // 텍스트 필드에서 텍스트 가져와 포매팅
 					JTextPane textPane = chatRoomList.get(topIndex).getTextPane();  // 텍스트를 보낼 텍스트판 가져오기
 					appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
-					System.out.println("(보냄)"+text);
+					System.out.print("(보냄)"+text);
 					
 					
 					/**
@@ -209,11 +211,15 @@ public class ChatRoomManager {
 		public void recieveText(int index, String text, User anotherUser) {			
 			JTextPane textPane = chatRoomList.get(index).getTextPane();  // 인덱스가 'index'인 채팅방의 텍스트판 가져오기
 			appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
-			System.out.println("(받음)"+text);
+			System.out.print("(받음)"+text);
 		}
 		
-		private String formatText(String text, User user) {
-			return "["+user.getName()+"]>> " + text + "\n";
+		private String formatText(String text, String userName) {
+			// 현재 시각 가져오기
+	        LocalDateTime currentDateTime = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	        String currTime = currentDateTime.format(formatter);
+			return currTime+":["+userName+"]>> " + text + "\n";
 		}
 		
 		private void appendToTextPane(JTextPane textPane, String text) {

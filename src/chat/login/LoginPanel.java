@@ -2,9 +2,10 @@ package chat.login;
 
 import javax.swing.*;
 
+import chat.dialog.DialogManager;
 import chat.frame.FrameManager;
 import chat.frame.LogInFrame;
-import chat.user.ChatClient;
+import chat.server.Client;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -87,9 +88,13 @@ public class LoginPanel extends JPanel {
 		loginButton.setForeground(Color.BLACK);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				wrongInputWarningLabel.setVisible(false);
+				emptyInputWarningLabel.setVisible(false);
+				
 				// char[] -> String
 				String password = new String(passwordField.getPassword());
-				System.out.println("아이디"+idField.getText()+"비번"+password);
+				String uid = idField.getText();
+				System.out.println("아이디"+uid+"비번"+password);
 				
 				// 마스터키
 				if (idField.getText().equals("m") && password.equals("m")) {
@@ -100,15 +105,15 @@ public class LoginPanel extends JPanel {
 				}
 				//
 				
-				wrongInputWarningLabel.setVisible(false);
-				emptyInputWarningLabel.setVisible(false);
 				if(idField.getText().length() == 0 || password.length() == 0) {
 					emptyInputWarningLabel.setVisible(true);
 					return;
 				}
-				ChatClient client = new ChatClient();
-				if(client.Login(idField.getText(), password) == null) {	//오류
+				
+				// 로그인 시도
+				if(!Client.sendLoginRequest(uid, password)) {	//오류
 					wrongInputWarningLabel.setVisible(true);
+					DialogManager.showLoginFailedDialog();
 					return;
 				}
 				// 제대로 로그인 했을 때 

@@ -1,11 +1,7 @@
 package chat.dialog;
 
-import java.awt.Dialog;
-
 import javax.swing.JDialog;
 import javax.swing.LookAndFeel;
-
-import chat.room.ChatRoomManager;
 
 public class DialogManager extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -29,5 +25,9 @@ public class DialogManager extends JDialog {
 	public static String showChatRoomTitleDialog(String baseTitle) {
 		ChatRoomTitleDialog dialog = new ChatRoomTitleDialog(baseTitle);
 		return dialog.getUserInput();
+	}
+	
+	public static void showLoginFailedDialog() {
+		new LoginFailedDialog();
 	}
 }
