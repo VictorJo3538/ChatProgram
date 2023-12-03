@@ -2,6 +2,9 @@ package chat.database;
 
 import java.sql.*;
 
+import chat.database.DBModel.DBcheck;
+import chat.server.Server;
+
 public class DBModel {
 	static public UserDB userDB = new UserDB();
 	
@@ -58,10 +61,72 @@ public class DBModel {
 			}
 		}
 	}
+	
+	public static class DBcheck {
+    	private static boolean res = false;
+    	
+    	// 디비 연결 확인에 사용
+    	public static Boolean connectDB(String DB) {
+    		new DBcon(DB);
+    		return res;
+    	}
+    	
+    	public static void setResult(boolean res) {
+    		DBcheck.res = res;
+    	}
+    }
+	
+	// DB 생성
+	public static void createDB(String DB, String tableName, String pwd) {
+        Connection con = null;
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            con = DriverManager.getConnection(
+                    "jdbc:mariadb://127.0.0.1:3306/",
+                    "root",
+                    pwd);
+
+            Statement stmt = con.createStatement();
+            String createDBQuery = "CREATE DATABASE IF NOT EXISTS " + DB;
+            stmt.executeUpdate(createDBQuery);
+
+            DBcon db = new DBcon(DB);
+            Connection dbCon = db.getConnection();
+            stmt = dbCon.createStatement();
+
+            String createTableQuery = "";
+            if (tableName.equals("msg_table")) {
+                createTableQuery = "CREATE TABLE IF NOT EXISTS msg_table (" +
+                        "id INT AUTO_INCREMENT PRIMARY KEY," +
+                        "msg VARCHAR(255)" +
+                        ")";
+            } else if (tableName.equals("user_table")) {
+                createTableQuery = "CREATE TABLE IF NOT EXISTS user_table (" +
+                        "id INT AUTO_INCREMENT PRIMARY KEY," +
+                        "uid VARCHAR(50)," +
+                        "pwd VARCHAR(50)," +
+                        "user_name VARCHAR(50)" +
+                        ")";
+            }
+
+            stmt.executeUpdate(createTableQuery);
+            System.out.println("DB생성 성공" + DB);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 class DBcon {
 	String driver = "org.mariadb.jdbc.Driver";
+	static String pwd = "3538";
 	Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
@@ -72,15 +137,17 @@ class DBcon {
 			con = DriverManager.getConnection(
 					"jdbc:mariadb://127.0.0.1:3306/"+DB,
 					"root",
-					"3538");
+					pwd);
 			if (con != null) {
 				System.out.println("DB접속 성공");
+				DBcheck.setResult(true);
 			}
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로드 실패!");
 		} catch (SQLException e) {
 			System.out.println("DB 접속 실패");
 			e.printStackTrace();
+			DBcheck.setResult(false);
 		}
 	}
 	

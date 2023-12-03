@@ -244,6 +244,11 @@ public class ChatRoomPanel extends JPanel {
 		roomManager.addChatRoom(new ChatRoom(roomTitleButton3, goButton3, r3TextPane, roomSelctPanel3));
 		roomManager.addChatRoom(new ChatRoom(roomTitleButton4, goButton4, r4TextPane, roomSelctPanel4));
 		roomManager.initListener(); // 리스너 달기
+		roomManager.addScrollPane(r0ScrollPane); // 스크롤판 초기화
+		roomManager.addScrollPane(r1ScrollPane);
+		roomManager.addScrollPane(r2ScrollPane);
+		roomManager.addScrollPane(r3ScrollPane);
+		roomManager.addScrollPane(r4ScrollPane);
 		Client.setChatRoomManager(roomManager); // 클라이언트에 객체 넘겨주기
 		
 		// 메뉴패널 좌측

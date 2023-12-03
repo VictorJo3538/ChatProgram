@@ -38,7 +38,7 @@ public class Client {
 
 					// 수신된 데이터 출력
 					String response = new String(receivePacket.getData(), 0, receivePacket.getLength());
-					System.out.println("FromServer: " + response);
+					System.out.print("FromServer: " + response);
 
 					// 데이터 처리 블록
 					String[] parts = response.split(";");
@@ -135,7 +135,7 @@ public class Client {
             try {
                 // 전송할 데이터
                 String message = "MESSAGE_REQUEST;"+roomNum+";"+text;
-                System.out.println("SENT: " + message);
+                System.out.print("SENT: " + message);
                 byte[] sendData = message.getBytes();
 
                 // 데이터를 DatagramPacket으로 감싸서 전송

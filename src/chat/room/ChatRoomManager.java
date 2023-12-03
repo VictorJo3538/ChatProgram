@@ -20,6 +20,7 @@ import chat.user.User;
 public class ChatRoomManager {
 	private ArrayList<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
 	private LinkedList<Integer> activationList = new LinkedList<Integer>();
+	ArrayList<JScrollPane> scrollPaneList = new ArrayList<JScrollPane>();
 	
 	public ServerInterface server;
 	public ChatRoomLimiter limiter = new ChatRoomLimiter();
@@ -45,6 +46,10 @@ public class ChatRoomManager {
 	public void updateTitleButtons(String title) {
 		chatRoomList.get(topIndex).getOpenBtn().setText(title);
 		titleButton.setText(title);
+	}
+	
+	public void addScrollPane(JScrollPane scrollPane) {
+		scrollPaneList.add(scrollPane);
 	}
 	
 	// 채팅방 객체 초기화
@@ -170,7 +175,6 @@ public class ChatRoomManager {
 			}
 			updateTitleButtons(chatRoomList.get(topIndex).getOpenBtn().getText());
 			cardLayout.show(textAreaPanel, Integer.toString(topIndex));  // 화면 보이기
-//			server.startChatting();  // 서버와 연결
 		}
 	}
 	
@@ -190,8 +194,6 @@ public class ChatRoomManager {
 					//
 
 					String text = formatText(textField.getText(), userName);  // 텍스트 필드에서 텍스트 가져와 포매팅
-//					JTextPane textPane = chatRoomList.get(topIndex).getTextPane();  // 텍스트를 보낼 텍스트판 가져오기
-//					appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
 					System.out.print("(보냄)"+text);
 					
 					// 서버에 채팅 보내기
@@ -208,6 +210,11 @@ public class ChatRoomManager {
 		    JTextPane textPane = chatRoomList.get(roomNum).getTextPane();  // 인덱스가 'index'인 채팅방의 텍스트판 가져오기
 		    appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
 		    System.out.print("(받음)" + text);
+		    
+			// 스크롤을 최하단으로 이동
+		    JScrollPane scrollPane = scrollPaneList.get(topIndex);
+			JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+			verticalScrollBar.setValue(verticalScrollBar.getMaximum());
 		}
 
 		private String formatText(String text, String userName) {
