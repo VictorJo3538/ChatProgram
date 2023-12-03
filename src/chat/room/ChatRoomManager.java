@@ -15,6 +15,7 @@ import javax.swing.text.html.HTMLDocument;
 import chat.dialog.DialogManager;
 import chat.server.Client;
 import chat.server.Client.Message;
+import chat.server.Client.RoomTitle;
 import chat.user.User;
 
 public class ChatRoomManager {
@@ -43,8 +44,8 @@ public class ChatRoomManager {
 		return titleButton;
 	}
 	
-	public void updateTitleButtons(String title) {
-		chatRoomList.get(topIndex).getOpenBtn().setText(title);
+	public void updateTitleButtons(String title, int roomNum) {
+		chatRoomList.get(roomNum).getOpenBtn().setText(title);
 		titleButton.setText(title);
 	}
 	
@@ -96,7 +97,7 @@ public class ChatRoomManager {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String newTitle = DialogManager.showChatRoomTitleDialog(titleButton.getText());
-				updateTitleButtons(newTitle);
+				RoomTitle.sendRequest(newTitle, topIndex); // 서버에 방제변경 요청 보내기
 			}
 		});
 	}
@@ -173,7 +174,7 @@ public class ChatRoomManager {
 				// 아닌 경우에는 이전 페이지 보이기
 				topIndex = activationList.get(index - 1);
 			}
-			updateTitleButtons(chatRoomList.get(topIndex).getOpenBtn().getText());
+			updateTitleButtons(chatRoomList.get(topIndex).getOpenBtn().getText(), topIndex);
 			cardLayout.show(textAreaPanel, Integer.toString(topIndex));  // 화면 보이기
 		}
 	}

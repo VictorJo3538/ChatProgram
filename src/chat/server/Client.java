@@ -53,6 +53,12 @@ public class Client {
 	                	String text = parts[2];
 	                	Message.handleRequest(roomNum, text);
 					}
+					
+					if (parts[0].startsWith("UPDATE_TITLE")) {
+						int roomNum = Integer.parseInt(parts[1]);
+	                	String title = parts[2];
+	                	RoomTitle.handleRequest(title, roomNum);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -148,6 +154,27 @@ public class Client {
     	
     	public static void handleRequest(int roomNum, String text) {
     		roomManager.server.updateChatRoom(roomNum, text);
+    	}
+    }
+    
+    public static class RoomTitle {
+    	public static void sendRequest(String roomTitle, int roomNum) {
+    		try {
+                // 전송할 데이터
+                String message = "TITLE_CHANGED;"+roomNum+";"+roomTitle;
+                System.out.println("SENT: " + message);
+                byte[] sendData = message.getBytes();
+
+                // 데이터를 DatagramPacket으로 감싸서 전송
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, Adress.ip, Adress.port);
+                Client.clientSocket.send(sendPacket);
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
+    	}
+    	
+    	public static void handleRequest(String title, int roomNum) {
+    		roomManager.updateTitleButtons(title, roomNum);
     	}
     }
     

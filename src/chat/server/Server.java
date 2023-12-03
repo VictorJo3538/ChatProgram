@@ -67,6 +67,13 @@ public class Server {
                 	sendToAllClients("UPDATE_REQUEST;"+msg);
                 	MsgDB.addMsg(msg);
                 }
+                
+                // 방제 변경 요청
+                if (parts[0].startsWith("TITLE_CHANGED")) {
+                	String roomNum = parts[1];
+                	String title = parts[2];
+                	sendToAllClients("UPDATE_TITLE;"+roomNum+";"+title);
+                }
             }
 
         } catch (Exception e) {
