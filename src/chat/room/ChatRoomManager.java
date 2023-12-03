@@ -44,9 +44,13 @@ public class ChatRoomManager {
 		return titleButton;
 	}
 	
+	public void updateTitleButtons(String title) {
+		chatRoomList.get(topIndex).getOpenBtn().setText(title);
+		titleButton.setText(title);
+	}
+	
 	public void updateTitleButtons(String title, int roomNum) {
 		chatRoomList.get(roomNum).getOpenBtn().setText(title);
-		titleButton.setText(title);
 	}
 	
 	public void addScrollPane(JScrollPane scrollPane) {
@@ -174,7 +178,7 @@ public class ChatRoomManager {
 				// 아닌 경우에는 이전 페이지 보이기
 				topIndex = activationList.get(index - 1);
 			}
-			updateTitleButtons(chatRoomList.get(topIndex).getOpenBtn().getText(), topIndex);
+			updateTitleButtons(chatRoomList.get(topIndex).getOpenBtn().getText());
 			cardLayout.show(textAreaPanel, Integer.toString(topIndex));  // 화면 보이기
 		}
 	}
