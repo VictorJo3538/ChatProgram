@@ -1,6 +1,5 @@
 package chat.server;
 
-import java.io.InputStream;
 import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,26 +8,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 import chat.database.DBModel;
-import chat.database.DBModel.DBcheck;
 import chat.database.DBModel.MsgDB;
-import chat.database.DBModel.UserDB;
 
 
 public class Server {
     private static Map<String, InetSocketAddress> clientAddresses = new HashMap<>();
     
     public static void main(String[] args) {
-    	// DB 체크
-    	if (DBcheck.connectDB("user_db") || DBcheck.connectDB("msg_db")) {
-    		System.out.println("데이터베이스가 없습니다. 새로 만드시겠습니까?[y/n]");
-    		Scanner sc = new Scanner(System.in);
-    		
-    		if (sc.next().equals("y")) {
-    			String pwd = sc.next();
-    			DBModel.createDB("msg_db", "msg_table", pwd);
-    			DBModel.createDB("user_db", "user_table", pwd);
-    		} 
-    	}
+    	
     	
         try {
             int port = Adress.port;

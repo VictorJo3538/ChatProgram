@@ -1,9 +1,7 @@
 package chat.database;
 
 import java.sql.*;
-
-import chat.database.DBModel.DBcheck;
-import chat.server.Server;
+import java.util.Scanner;
 
 public class DBModel {
 	static public UserDB userDB = new UserDB();
@@ -62,20 +60,6 @@ public class DBModel {
 		}
 	}
 	
-	public static class DBcheck {
-    	private static boolean res = false;
-    	
-    	// 디비 연결 확인에 사용
-    	public static Boolean connectDB(String DB) {
-    		new DBcon(DB);
-    		return res;
-    	}
-    	
-    	public static void setResult(boolean res) {
-    		DBcheck.res = res;
-    	}
-    }
-	
 	// DB 생성
 	public static void createDB(String DB, String tableName, String pwd) {
         Connection con = null;
@@ -121,13 +105,14 @@ public class DBModel {
                 e.printStackTrace();
             }
         }
+        
     }
 }
 
 class DBcon {
-	String driver = "org.mariadb.jdbc.Driver";
+	static String driver = "org.mariadb.jdbc.Driver";
 	static String pwd = "3538";
-	Connection con;
+	static Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
@@ -140,14 +125,25 @@ class DBcon {
 					pwd);
 			if (con != null) {
 				System.out.println("DB접속 성공");
-				DBcheck.setResult(true);
 			}
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로드 실패!");
 		} catch (SQLException e) {
 			System.out.println("DB 접속 실패");
 			e.printStackTrace();
-			DBcheck.setResult(false);
+			// DB 생성 요청
+			System.out.print("데이터베이스가 없습니다. 새로 만드시겠습니까?[y/n]: ");
+			Scanner sc = new Scanner(System.in);
+
+			if (sc.next().equals("y")) {
+				System.out.println("DB생성중...");
+				System.out.print("비밀번호를 입력해 주세요: ");
+				String pwd = sc.next();
+				DBModel.createDB("msg_db", "msg_table", pwd);
+				DBModel.createDB("user_db", "user_table", pwd);
+				System.out.println("DB생성 완료!");
+	    	}
+			sc.close();
 		}
 	}
 	
