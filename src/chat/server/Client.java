@@ -45,6 +45,12 @@ public class Client {
 					if (parts[0].startsWith("LOGIN")) {  // 로그인 응답
 						Login.setResponse(parts);
 					}
+					
+					if (parts[0].startsWith("UPDATE_REQUEST")) { // 메시지 업데이트 요청
+						int roomNum = Integer.parseInt(parts[1]);
+	                	String text = parts[2];
+	                	Message.handleRequest(roomNum, text);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -120,6 +126,10 @@ public class Client {
             	e.printStackTrace();
             }
         }
+    	
+    	public static void handleRequest(int roomNum, String text) {
+    		
+    	}
     }
     
 }
