@@ -20,8 +20,8 @@ import chat.user.User;
 public class ChatRoomManager {
 	private ArrayList<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
 	private LinkedList<Integer> activationList = new LinkedList<Integer>();
-	private ServerInterface server;
 	
+	public ServerInterface server;
 	public ChatRoomLimiter limiter = new ChatRoomLimiter();
 	
 	private JButton titleButton;
@@ -175,7 +175,7 @@ public class ChatRoomManager {
 	}
 	
 	// 중앙 하단 텍스트필드에서 입력한 값 -> 서버, 서버 -> 중앙 텍스트에리어로 정보 입출력
-	private class ServerInterface {
+	public class ServerInterface {
 		
 		private ServerInterface() {			
 			textField.addActionListener(new ActionListener() {
@@ -203,13 +203,13 @@ public class ChatRoomManager {
 			});
 		}
 		
-		// index: 0~4 까지의 채팅방 인덱스, text: 입력할 텍스트
-		public void recieveText(int index, String text, User anotherUser) {			
-			JTextPane textPane = chatRoomList.get(index).getTextPane();  // 인덱스가 'index'인 채팅방의 텍스트판 가져오기
-			appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
-			System.out.print("(받음)"+text);
+		// roomNum: 0~4 까지의 채팅방 인덱스, text: 입력할 텍스트
+		public void updateChatRoom(int roomNum, String text) {
+		    JTextPane textPane = chatRoomList.get(roomNum).getTextPane();  // 인덱스가 'index'인 채팅방의 텍스트판 가져오기
+		    appendToTextPane(textPane, text);  // 텍스트판에 텍스트 보내기
+		    System.out.print("(받음)" + text);
 		}
-		
+
 		private String formatText(String text, String userName) {
 			// 현재 시각 가져오기
 	        LocalDateTime currentDateTime = LocalDateTime.now();

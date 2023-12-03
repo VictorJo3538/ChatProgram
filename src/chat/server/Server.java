@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import chat.database.DBModel;
+import chat.database.DBModel.MsgDB;
 
 public class Server {
     private static Map<String, InetSocketAddress> clientAddresses = new HashMap<>();
@@ -33,7 +34,7 @@ public class Server {
                     // 로그인 성공
                     String responseMessage = "LOGIN_FAILED"; // 기본값 실패
                     if (DBModel.userDB.login(uid, pwd)) {
-                        responseMessage = "LOGIN_SUCCESS;" + DBModel.userDB.getUserName();
+                        responseMessage = "LOGIN_SUCCESS;"+DBModel.userDB.getUid()+";"+DBModel.userDB.getUserName();
 
                         // 클라이언트의 주소 및 포트를 저장
                         InetSocketAddress clientAddress = new InetSocketAddress(receivePacket.getAddress(), receivePacket.getPort());
@@ -47,11 +48,19 @@ public class Server {
                     print("   SENT: "+responseMessage);
                 }
                 
+                // 로그아웃 요청
+                if (parts[0].startsWith("LOGOUT_REQUEST")) {
+                	String uid = parts[1];
+                	clientAddresses.remove(uid);
+                }
+                
                 // 메시지 요청
                 if (parts[0].startsWith("MESSAGE_REQUEST")) {
                 	String roomNum = parts[1];
                 	String text = parts[2];
-                	sendToAllClients("UPDATE_REQUEST;"+roomNum+";"+text);
+                	String msg = roomNum+";"+text;
+                	sendToAllClients("UPDATE_REQUEST;"+msg);
+                	MsgDB.addMsg(msg);
                 }
             }
 
@@ -68,7 +77,7 @@ public class Server {
                 DatagramSocket socket = new DatagramSocket(); // 새로운 소켓 생성
                 socket.send(sendPacket);
                 socket.close();
-                print("   SENT: " + message + "TO: "+clientAddress);
+                print("   SENT("+clientAddress+"): " + message);
             } catch (Exception e) {
                 e.printStackTrace();
             }

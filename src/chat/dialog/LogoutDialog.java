@@ -24,6 +24,7 @@ public class LogoutDialog extends JDialog {
             // "예" 버튼을 눌렀을 때의 동작
             FrameManager.getChatRoomFrame().setVisible(false);
             FrameManager.getLoginFrame().setVisible(true);
+            
         } else {
             // "아니오" 버튼이나 창을 닫았을 때의 동작
         }

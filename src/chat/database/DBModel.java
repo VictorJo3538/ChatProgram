@@ -6,6 +6,7 @@ public class DBModel {
 	static public UserDB userDB = new UserDB();
 	
 	public static class UserDB {
+		String uid;
 		String userName;
 
 		public boolean login(String uid, String pwd) {
@@ -22,6 +23,7 @@ public class DBModel {
 					// 여기서 데이터를 가져와서 처리
 					if (rs.getString("uid").equals(uid) && rs.getString("pwd").equals(pwd)) {
 						res = true;
+						uid = rs.getString("uid");
 						userName = rs.getString("user_name");
 					}
 				}
@@ -30,6 +32,10 @@ public class DBModel {
 			}
 
 			return res;
+		}
+		
+		public String getUid() {
+			return uid;
 		}
 		
 		public String getUserName() {

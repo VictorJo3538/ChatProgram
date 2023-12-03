@@ -7,7 +7,7 @@ public class Adress {
 	static InetAddress ip;
 	static {
 		try {
-			ip = InetAddress.getByName("192.168.219.102");
+			ip = InetAddress.getByName("192.168.80.96");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

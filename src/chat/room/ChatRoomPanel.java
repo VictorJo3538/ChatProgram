@@ -55,7 +55,7 @@ public class ChatRoomPanel extends JPanel {
 		JScrollPane r0ScrollPane = new JScrollPane(r0TextPane);
 		r0ScrollPane.setSize(500, 450);
 		textAreaPanel.add("0", r0ScrollPane);
-
+		
 		JTextPane r1TextPane = new JTextPane();
 		JScrollPane r1ScrollPane = new JScrollPane(r1TextPane);
 		r1ScrollPane.setSize(500, 450);
@@ -244,7 +244,7 @@ public class ChatRoomPanel extends JPanel {
 		roomManager.addChatRoom(new ChatRoom(roomTitleButton3, goButton3, r3TextPane, roomSelctPanel3));
 		roomManager.addChatRoom(new ChatRoom(roomTitleButton4, goButton4, r4TextPane, roomSelctPanel4));
 		roomManager.initListener(); // 리스너 달기
-		Client.setChatRoomManager(roomManager);
+		Client.setChatRoomManager(roomManager); // 클라이언트에 객체 넘겨주기
 		
 		// 메뉴패널 좌측
 		JPanel menuLeftPanel = new JPanel();
